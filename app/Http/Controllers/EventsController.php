@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Date;
 class EventsController extends BaseController
 {
     public function getWarmupEvents() {
-        return Event::with('workshops')->all();
+        return Event::with('workshops')->get();
     }
 
     /* TODO: complete getEventsWithWorkshops so that it returns all events including the workshops
@@ -101,7 +101,9 @@ class EventsController extends BaseController
      */
 
     public function getEventsWithWorkshops() {
-        throw new \Exception('implement in coding task 1');
+
+        return Event::has('pendingWorkShops')->with('pendingWorkShops')->get();
+        // throw new \Exception('implement in coding task 1');
     }
 
 
