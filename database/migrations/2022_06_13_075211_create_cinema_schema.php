@@ -36,7 +36,54 @@ class CreateCinemaSchema extends Migration
      */
     public function up()
     {
-        throw new \Exception('implement in coding task 4, you can ignore this exception if you are just running the initial migrations.');
+        Schema::create('movies',function(Blueprint $table){
+            $table->id();
+            $table->string('name');
+            $table->timestamp('start_at');
+            $table->boolean('full');
+            $table->timestamps();
+        });
+
+        Schema::create('show',function(Blueprint $table){
+            $table->id();
+            $table->integer('movie_id');
+            $table->timestamp('show_datetime');
+            $table->integer('total_seats');
+            $table->integer('available_seats');
+            $table->string('showroom');
+            $table->integer('created_by');
+            $table->integer('updated_by');
+            $table->timestamps();
+        });
+
+        Schema::create('pricing',function(Blueprint $table){
+            $table->id();
+            $table->integer('show_id');
+            $table->integer('price');
+            $table->integer('vip_percentage');
+            $table->integer('created_by');
+            $table->integer('updated_by');
+            $table->timestamps();
+        });
+
+        
+
+        Schema::create('seats',function(Blueprint $table){
+            $table->id();
+            $table->integer('show_id');
+            $table->integer('price_id');
+            $table->integer('user_id');
+            $table->string('seat_type');
+            $table->integer('seat_number');
+            $table->integer('vip_percentage');
+            $table->integer('created_by');
+            $table->integer('updated_by');
+            $table->timestamps();
+        });
+
+
+
+        // throw new \Exception('implement in coding task 4, you can ignore this exception if you are just running the initial migrations.');
     }
 
     /**
@@ -46,5 +93,9 @@ class CreateCinemaSchema extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('movies');
+        Schema::dropIfExists('show');
+        Schema::dropIfExists('pricing');
+        Schema::dropIfExists('seats');
     }
 }
