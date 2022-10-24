@@ -93,6 +93,12 @@ class MenuController extends BaseController
      */
 
     public function getMenuItems() {
+
+        return MenuItem::with(['children'=>function($q){
+            $q->with(['children'=>function($sq){
+                $sq->with('children');
+            }]);
+        }])->get();
         throw new \Exception('implement in coding task 3');
     }
 }
